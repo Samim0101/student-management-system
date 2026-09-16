@@ -6,21 +6,22 @@ typedef struct
   float marks;
 } student;
 
-int main()
+
+void add_student(student *s)
 {
   printf(" --- Add Student --- \n");
-  student student1;
-  printf("Enter student rollnumber:  ");
-  scanf("%d", &student1.rollnumber);
-  printf("Enter student name: ");
-  scanf("%s", student1.name);
-  printf("Enter student marks: ");
-  scanf("%f", &student1.marks);
-  printf("\n--- Student information --- \n");
-  printf("Roll number: %d \n", student1.rollnumber);
-  printf("Name: %s \n", student1.name);
-  printf("Marks: %.2f \n", student1.marks);
 
+  printf("Enter student roll number:  ");
+  scanf("%d", &s->rollnumber);
+  printf("Enter student name: ");
+  scanf("%s", s->name);
+  printf("Enter student marks: ");
+  scanf("%f", &s->marks);
+  printf("Student added succesfully! \n");
+} 
+int main()
+{
+  student student1;
   int choice;
 
   while (1)
@@ -38,7 +39,7 @@ int main()
     switch (choice)
     {
     case 1:
-      printf("Add Student \n");
+      add_student(&student1);
       break;
     case 2:
       printf("View All Student \n");
