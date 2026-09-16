@@ -28,6 +28,7 @@ void add_student(student students[], int *student_count)
 
 void view_students(student students[], int student_count)
 {
+  printf("--- All Students --- \n");
   if (student_count == 0)
   {
     printf("No student found!\n");
@@ -37,6 +38,36 @@ void view_students(student students[], int student_count)
   for (int i = 0; i < student_count; i++)
   {
     printf("Roll number: %d | Name: %s | Marks: %.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
+  }
+}
+
+void search_student(student students[], int student_count)
+{
+  printf("--- Search Student --- \n");
+
+  if (student_count == 0)
+  {
+    printf("No students in Database to search! \n");
+    return;
+  }
+
+  int search_roll;
+  printf("Enter roll number to search: ");
+  scanf("%d", &search_roll);
+  int found = 0;
+  for (int i = 0; i < student_count; i++)
+  {
+    if (students[i].rollnumber == search_roll)
+    {
+      printf("--- Student Found --- \n");
+      printf("Roll number: %d | Name: %s | Marks: %.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
+      found = 1;
+      break;
+    }
+  }
+  if (!found)
+  {
+    printf("Student with roll number %d not found! \n", search_roll);
   }
 }
 
@@ -64,14 +95,13 @@ int main()
       add_student(students, &student_count);
       break;
     case 2:
-      printf("--- All Students --- \n");
 
       view_students(students, student_count);
       break;
     case 3:
-      printf("Search Student \n");
-
+      search_student(students, student_count);
       break;
+
     case 4:
       printf(" Update Student \n");
 
