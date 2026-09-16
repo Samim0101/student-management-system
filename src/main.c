@@ -25,6 +25,21 @@ void add_student(student students[], int *student_count)
   printf("Student added succesfully! \n");
   (*student_count)++;
 }
+
+void view_students(student students[], int student_count)
+{
+  if (student_count == 0)
+  {
+    printf("No student found!\n");
+    return;
+  }
+
+  for (int i = 0; i < student_count; i++)
+  {
+    printf("Roll number: %d | Name: %s | Marks: %.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
+  }
+}
+
 int main()
 {
   student students[100];
@@ -49,7 +64,9 @@ int main()
       add_student(students, &student_count);
       break;
     case 2:
-      printf("View All Student \n");
+      printf("--- All Students --- \n");
+
+      view_students(students, student_count);
       break;
     case 3:
       printf("Search Student \n");
