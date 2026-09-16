@@ -21,6 +21,7 @@ void add_student(student *s)
 } 
 int main()
 {
+  
   student student1;
   int choice;
 
