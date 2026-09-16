@@ -6,23 +6,29 @@ typedef struct
   float marks;
 } student;
 
-
-void add_student(student *s)
+void add_student(student students[], int *student_count)
 {
   printf(" --- Add Student --- \n");
 
+  if (*student_count >= 100)
+  {
+    printf("Cannot add student Database is full! \n");
+    return;
+  }
+
   printf("Enter student roll number:  ");
-  scanf("%d", &s->rollnumber);
+  scanf("%d", &students[*student_count].rollnumber);
   printf("Enter student name: ");
-  scanf("%s", s->name);
+  scanf("%s", students[*student_count].name);
   printf("Enter student marks: ");
-  scanf("%f", &s->marks);
+  scanf("%f", &students[*student_count].marks);
   printf("Student added succesfully! \n");
-} 
+  (*student_count)++;
+}
 int main()
 {
-  
-  student student1;
+  student students[100];
+  int student_count = 0;
   int choice;
 
   while (1)
@@ -40,7 +46,7 @@ int main()
     switch (choice)
     {
     case 1:
-      add_student(&student1);
+      add_student(students, &student_count);
       break;
     case 2:
       printf("View All Student \n");
