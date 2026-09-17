@@ -141,6 +141,24 @@ void delete_student(student students[], int *student_count)
   printf("Student deleted successfully! \n");
 }
 
+void save_students(student students[], int student_count)
+{
+  printf("--- Exite ---\n");
+  
+  FILE *file = fopen("students.txt", "w");
+  if (file == NULL)
+  {
+    printf("Error openig file for saving! \n");
+    return;
+  }
+  for (int i = 0; i < student_count; i++)
+  {
+    fprintf(file, "%d %s %.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
+  }
+  fclose(file);
+  printf("Data saved succesfuly to student.txt! \n");
+}
+
 int main()
 {
   student students[100];
@@ -179,8 +197,8 @@ int main()
       delete_student(students, &student_count);
       break;
     case 6:
-      printf("Exit \n");
-
+      save_students(students, student_count);
+      printf("Exiting program. Good bye! \n");
       return 0;
     default:
       printf("Invalid choice. Please try again \n");
