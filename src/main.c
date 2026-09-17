@@ -144,7 +144,7 @@ void delete_student(student students[], int *student_count)
 void save_students(student students[], int student_count)
 {
   printf("--- Exite ---\n");
-  
+
   FILE *file = fopen("students.txt", "w");
   if (file == NULL)
   {
@@ -156,7 +156,27 @@ void save_students(student students[], int student_count)
     fprintf(file, "%d %s %.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
   }
   fclose(file);
-  printf("Data saved succesfuly to student.txt! \n");
+  printf("Data saved succesfully to student.txt! \n");
+}
+
+void load_students(student students[], int *student_count)
+{
+  FILE *file = fopen("students.txt", "r");
+  if (file == NULL)
+  {
+    printf("Firts time runnig, no file exists yet. That's totally okay! \n");
+    return;
+  }
+  while (fscanf(file, "%d %s %f", &students[*student_count].rollnumber, students[*student_count].name, &students[*student_count].marks) == 3)
+  {
+    (*student_count)++;
+    if (*student_count >= 100)
+    {
+      break; // prevent array overflow.
+    }
+  }
+  fclose(file);
+  printf("Loaded %d students(s) from database. \n", *student_count);
 }
 
 int main()
@@ -164,6 +184,8 @@ int main()
   student students[100];
   int student_count = 0;
   int choice;
+
+  load_students(students, &student_count);
 
   while (1)
   {
