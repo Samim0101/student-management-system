@@ -106,6 +106,41 @@ void update_student(student students[], int student_count)
   }
 }
 
+void delete_student(student students[], int *student_count)
+{
+  printf("--- Delete Student ---\n");
+
+  if (*student_count == 0)
+  {
+    printf("No student in Database! \n");
+    return;
+  }
+  int roll_to_delete;
+  int found_index = -1;
+  printf("Enter roll number to delete: ");
+  scanf("%d", &roll_to_delete);
+
+  for (int i = 0; i < *student_count; i++)
+  {
+    if (students[i].rollnumber == roll_to_delete)
+    {
+      found_index = i;
+      break;
+    }
+  }
+  if (found_index == -1)
+  {
+    printf("student not found! \n");
+    return;
+  }
+  for (int j = found_index; j < *student_count - 1; j++)
+  {
+    students[j] = students[j + 1];
+  }
+  (*student_count)--;
+  printf("Student deleted successfully! \n");
+}
+
 int main()
 {
   student students[100];
@@ -141,8 +176,7 @@ int main()
       update_student(students, student_count);
       break;
     case 5:
-      printf("Delete Student \n");
-
+      delete_student(students, &student_count);
       break;
     case 6:
       printf("Exit \n");
