@@ -71,6 +71,41 @@ void search_student(student students[], int student_count)
   }
 }
 
+void update_student(student students[], int student_count)
+{
+  printf("--- Update Student ---\n");
+
+  if (student_count == 0)
+  {
+    printf("No students in Database to search! \n");
+    return;
+  }
+  int roll_to_update;
+  int found = 0;
+  printf("Enter your roll to update: ");
+  scanf("%d", &roll_to_update);
+
+  for (int i = 0; i < student_count; i++)
+  {
+    if (students[i].rollnumber == roll_to_update)
+    {
+      printf("Enter new Name: ");
+      scanf("%s", students[i].name);
+
+      printf("Enter new Marks: ");
+      scanf("%f", &students[i].marks);
+
+      printf("Student details updated successfully! \n");
+      found = 1;
+      break;
+    }
+  }
+  if (!found)
+  {
+    printf("No student with that roll number was found. \n");
+  }
+}
+
 int main()
 {
   student students[100];
@@ -103,8 +138,7 @@ int main()
       break;
 
     case 4:
-      printf(" Update Student \n");
-
+      update_student(students, student_count);
       break;
     case 5:
       printf("Delete Student \n");
