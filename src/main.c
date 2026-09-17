@@ -6,6 +6,33 @@ typedef struct
   float marks;
 } student;
 
+int get_valid_roll()
+{
+  int roll;
+  while (1)
+  {
+    printf("Enter student roll number: ");
+    // 1. Check if scanf faild to read an integer.
+    if (scanf("%d", &roll) != 1)
+    {
+      printf("Invalid roll number. Please enter a valid number! \n");
+      // 2. Clear the invalid characters from the input buffer.
+      while (getchar() != '\n')
+        ;
+      // 3. Optional: make sure roll number is positive (>0)
+    }
+    else if (roll <= 0)
+    {
+      printf("Roll number must be greater than 0! \n");
+    }
+    else
+    {
+      // valid integer entered! Return it.
+      return roll;
+    }
+  }
+}
+
 void add_student(student students[], int *student_count)
 {
   printf(" --- Add Student --- \n");
@@ -17,7 +44,7 @@ void add_student(student students[], int *student_count)
   }
 
   printf("Enter student roll number:  ");
-  scanf("%d", &students[*student_count].rollnumber);
+  students[*student_count].rollnumber = get_valid_roll();
   printf("Enter student name: ");
   scanf("%s", students[*student_count].name);
   printf("Enter student marks: ");
