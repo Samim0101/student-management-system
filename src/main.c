@@ -33,6 +33,18 @@ int get_valid_roll()
   }
 }
 
+int is_roll_duplicate(student students[], int count, int roll)
+{
+  for (int i = 0; i < count; i++)
+  {
+    if (students[i].rollnumber == roll)
+    {
+      return 1; // 1 = Yes it is a duplicate!
+    }
+  }
+  return 0; // 0 = No duplicate it is unique!
+}
+
 void add_student(student students[], int *student_count)
 {
   printf(" --- Add Student --- \n");
@@ -43,8 +55,21 @@ void add_student(student students[], int *student_count)
     return;
   }
 
-  printf("Enter student roll number:  ");
-  students[*student_count].rollnumber = get_valid_roll();
+  int roll;
+  while (1)
+  {
+    roll = get_valid_roll();
+    if (is_roll_duplicate(students, *student_count, roll))
+    {
+      printf("Roll number %d already exists! Please try another.\n", roll);
+    }
+    else
+    {
+      break; // Unique! Break out of the loop
+    }
+  }
+
+  students[*student_count].rollnumber = roll;
   printf("Enter student name: ");
   scanf("%s", students[*student_count].name);
   printf("Enter student marks: ");
