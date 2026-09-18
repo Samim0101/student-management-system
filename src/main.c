@@ -7,6 +7,13 @@ typedef struct
   float marks;
 } student;
 
+void clear_input_buffer()
+{
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF)
+    ;
+}
+
 int get_valid_roll()
 {
   int roll;
@@ -18,8 +25,7 @@ int get_valid_roll()
     {
       printf("Invalid roll number. Please enter a valid number! \n");
       // 2. Clear the invalid characters from the input buffer.
-      while (getchar() != '\n')
-        ;
+      clear_input_buffer();
       // 3. Optional: make sure roll number is positive (>0)
     }
     else if (roll <= 0)
@@ -44,8 +50,7 @@ float get_valid_marks()
     if (scanf("%f", &marks) != 1)
     {
       printf("Invalid input! Please enter a numeric value. \n");
-      while (getchar() != '\n')
-        ; // clear buffer.
+      clear_input_buffer(); // clear buffer.
     }
     // 2, Validate range: 0.0 to 100.0
     else if (marks < 0.0f || marks > 100.0f)
@@ -114,8 +119,7 @@ void add_student(student students[], int *student_count)
   }
 
   students[*student_count].rollnumber = roll;
-  while (getchar() != '\n')
-    ; // Clear the leftover newline from get_valid_roll().
+  clear_input_buffer(); // Clear the leftover newline from get_valid_roll().
   get_valid_name(students[*student_count].name);
 
   students[*student_count].marks = get_valid_marks();
@@ -183,8 +187,7 @@ void update_student(student students[], int student_count)
   {
     if (students[i].rollnumber == roll_to_update)
     {
-      while (getchar() != '\n')
-        ; // Clear new line.
+      clear_input_buffer(); // Clear new line.
       get_valid_name(students[i].name);
       printf("Enter new Marks: ");
       students[i].marks = get_valid_marks();
@@ -293,9 +296,8 @@ int main()
     if (scanf("%d", &choice) != 1)
     {
       printf("Invalid input! Please enter a number (1 - 6): \n");
-      while (getchar() != '\n')
-        ;       // Clear buffer.
-      continue; // Restart the while(1) loop.
+      clear_input_buffer(); // Clear buffer.
+      continue;             // Restart the while(1) loop.
     }
 
     switch (choice)
