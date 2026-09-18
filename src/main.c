@@ -244,7 +244,7 @@ void save_students(student students[], int student_count)
   }
   for (int i = 0; i < student_count; i++)
   {
-    fprintf(file, "%d %s %.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
+    fprintf(file, "%d|%s|%.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
   }
   fclose(file);
   printf("Data saved succesfully to student.txt! \n");
@@ -258,14 +258,15 @@ void load_students(student students[], int *student_count)
     printf("Firts time runnig, no file exists yet. That's totally okay! \n");
     return;
   }
-  while (*student_count < 100 && fscanf(file, "%d %s %f", &students[*student_count].rollnumber, students[*student_count].name, &students[*student_count].marks) == 3)
+  char line[128];
+  while (*student_count < 100 && fgets(line, sizeof(line), file) != NULL)
   {
-    (*student_count)++;
-    if (*student_count >= 100)
+    if (sscanf(line, "%d|%49[^|\n]|%f", &students[*student_count].rollnumber, students[*student_count].name, &students[*student_count].marks) == 3)
     {
-      break; // prevent array overflow.
+      (*student_count)++;
     }
   }
+
   fclose(file);
   printf("Loaded %d students(s) from database. \n", *student_count);
 }
