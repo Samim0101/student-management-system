@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 typedef struct
 {
   int rollnumber;
@@ -58,6 +59,24 @@ float get_valid_marks()
   }
 }
 
+void get_valid_name(char name[])
+{
+  while (1)
+  {
+    printf("Enter student name: ");
+    if (fgets(name, 50, stdin) != NULL)
+    {
+      // Remove the trailing newline '\n' left by fgets.
+      name[strcspn(name, "\n")] = '\0'; // Ensure name is not empty.
+      if (strlen(name) > 0)
+      {
+        return;
+      }
+    }
+    printf("Invalid name. Please enter a valid name. \n");
+  }
+}
+
 int is_roll_duplicate(student students[], int count, int roll)
 {
   for (int i = 0; i < count; i++)
@@ -95,9 +114,10 @@ void add_student(student students[], int *student_count)
   }
 
   students[*student_count].rollnumber = roll;
-  printf("Enter student name: ");
-  scanf("%s", students[*student_count].name);
-  printf("Enter student marks: ");
+  while (getchar() != '\n')
+    ; // Clear the leftover newline from get_valid_roll().
+  get_valid_name(students[*student_count].name);
+
   students[*student_count].marks = get_valid_marks();
   printf("Student added succesfully! \n");
   (*student_count)++;
@@ -157,18 +177,15 @@ void update_student(student students[], int student_count)
     printf("No students in Database to search! \n");
     return;
   }
-  int roll_to_update;
   int found = 0;
-  printf("Enter your roll to update: ");
-  scanf("%d", &roll_to_update);
-
+  int roll_to_update = get_valid_roll();
   for (int i = 0; i < student_count; i++)
   {
     if (students[i].rollnumber == roll_to_update)
     {
-      printf("Enter new Name: ");
-      scanf("%s", students[i].name);
-
+      while (getchar() != '\n')
+        ; // Clear new line.
+      get_valid_name(students[i].name);
       printf("Enter new Marks: ");
       students[i].marks = get_valid_marks();
 
@@ -192,11 +209,8 @@ void delete_student(student students[], int *student_count)
     printf("No student in Database! \n");
     return;
   }
-  int roll_to_delete;
   int found_index = -1;
-  printf("Enter roll number to delete: ");
-  scanf("%d", &roll_to_delete);
-
+  int roll_to_delete = get_valid_roll();
   for (int i = 0; i < *student_count; i++)
   {
     if (students[i].rollnumber == roll_to_delete)
@@ -244,7 +258,7 @@ void load_students(student students[], int *student_count)
     printf("Firts time runnig, no file exists yet. That's totally okay! \n");
     return;
   }
-  while (fscanf(file, "%d %s %f", &students[*student_count].rollnumber, students[*student_count].name, &students[*student_count].marks) == 3)
+  while (*student_count < 100 && fscanf(file, "%d %s %f", &students[*student_count].rollnumber, students[*student_count].name, &students[*student_count].marks) == 3)
   {
     (*student_count)++;
     if (*student_count >= 100)
@@ -275,7 +289,14 @@ int main()
     printf("4. Update Student \n");
     printf("5. Delete Student \n");
     printf("6. Exit \n");
-    scanf("%d", &choice);
+    if (scanf("%d", &choice) != 1)
+    {
+      printf("Invalid input! Please enter a number (1 - 6): \n");
+      while (getchar() != '\n')
+        ;       // Clear buffer.
+      continue; // Restart the while(1) loop.
+    }
+
     switch (choice)
     {
     case 1:
