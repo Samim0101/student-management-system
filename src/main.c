@@ -33,6 +33,31 @@ int get_valid_roll()
   }
 }
 
+float get_valid_marks()
+{
+  float marks;
+  while (1)
+  {
+    printf("Enter student marks (0 - 100): ");
+    // 1. valid float input.
+    if (scanf("%f", &marks) != 1)
+    {
+      printf("Invalid input! Please enter a numeric value. \n");
+      while (getchar() != '\n')
+        ; // clear buffer.
+    }
+    // 2, Validate range: 0.0 to 100.0
+    else if (marks < 0.0f || marks > 100.0f)
+    {
+      printf("Marks must be between 0 to 100! \n");
+    }
+    else
+    {
+      return marks; // Valid!
+    }
+  }
+}
+
 int is_roll_duplicate(student students[], int count, int roll)
 {
   for (int i = 0; i < count; i++)
@@ -73,7 +98,7 @@ void add_student(student students[], int *student_count)
   printf("Enter student name: ");
   scanf("%s", students[*student_count].name);
   printf("Enter student marks: ");
-  scanf("%f", &students[*student_count].marks);
+  students[*student_count].marks = get_valid_marks();
   printf("Student added succesfully! \n");
   (*student_count)++;
 }
@@ -105,7 +130,7 @@ void search_student(student students[], int student_count)
 
   int search_roll;
   printf("Enter roll number to search: ");
-  scanf("%d", &search_roll);
+  search_roll = get_valid_roll();
   int found = 0;
   for (int i = 0; i < student_count; i++)
   {
@@ -145,7 +170,7 @@ void update_student(student students[], int student_count)
       scanf("%s", students[i].name);
 
       printf("Enter new Marks: ");
-      scanf("%f", &students[i].marks);
+      students[i].marks = get_valid_marks();
 
       printf("Student details updated successfully! \n");
       found = 1;
