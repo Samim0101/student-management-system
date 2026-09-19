@@ -71,6 +71,13 @@ void get_valid_name(char name[])
     printf("Enter student name: ");
     if (fgets(name, 50, stdin) != NULL)
     {
+      if (strchr(name, '\n') == NULL)
+      {
+        clear_input_buffer();
+        printf("Name is too long. Please enter a shorter name. \n");
+        continue;
+      }
+
       // Remove the trailing newline '\n' left by fgets.
       name[strcspn(name, "\n")] = '\0'; // Ensure name is not empty.
       if (strlen(name) > 0)
