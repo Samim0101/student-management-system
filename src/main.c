@@ -14,27 +14,34 @@ void clear_input_buffer()
     ;
 }
 
+int get_valid_integer()
+{
+  int value;
+  char extra;
+  while (1)
+  {
+    if (scanf("%d%c", &value, &extra) == 2 && extra == '\n')
+    {
+      return value; // Clean integer, no trailing garbage!
+    }
+    clear_input_buffer(); // Clear 'abc' or '123abc' leftovers.
+    printf("Invalid input! Please enter a whole number only. \n");
+  }
+}
+
 int get_valid_roll()
 {
   int roll;
   while (1)
   {
     printf("Enter student roll number: ");
-    // 1. Check if scanf faild to read an integer.
-    if (scanf("%d", &roll) != 1)
-    {
-      printf("Invalid roll number. Please enter a valid number! \n");
-      // 2. Clear the invalid characters from the input buffer.
-      clear_input_buffer();
-      // 3. Optional: make sure roll number is positive (>0)
-    }
-    else if (roll <= 0)
+    roll = get_valid_integer();
+    if (roll <= 0)
     {
       printf("Roll number must be greater than 0! \n");
     }
     else
     {
-      // valid integer entered! Return it.
       return roll;
     }
   }
@@ -271,7 +278,10 @@ void load_students(student students[], int *student_count)
   char line[128];
   while (*student_count < 100 && fgets(line, sizeof(line), file) != NULL)
   {
-    if (sscanf(line, "%d|%49[^|\n]|%f", &students[*student_count].rollnumber, students[*student_count].name, &students[*student_count].marks) == 3)
+    if (sscanf(line, "%d|%49[^|\n]|%f",
+               &students[*student_count].rollnumber,
+               students[*student_count].name,
+               &students[*student_count].marks) == 3)
     {
       (*student_count)++;
     }
@@ -300,12 +310,8 @@ int main()
     printf("4. Update Student \n");
     printf("5. Delete Student \n");
     printf("6. Exit \n");
-    if (scanf("%d", &choice) != 1)
-    {
-      printf("Invalid input! Please enter a number (1 - 6): \n");
-      clear_input_buffer(); // Clear buffer.
-      continue;             // Restart the while(1) loop.
-    }
+
+    choice = get_valid_integer();
 
     switch (choice)
     {
