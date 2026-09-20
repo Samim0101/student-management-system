@@ -137,7 +137,7 @@ void add_student(student students[], int *student_count)
   get_valid_name(students[*student_count].name);
 
   students[*student_count].marks = get_valid_marks();
-  printf("Student added succesfully! \n");
+  printf("Student added successfully! \n");
   (*student_count)++;
 }
 
@@ -251,12 +251,12 @@ void delete_student(student students[], int *student_count)
 
 void save_students(student students[], int student_count)
 {
-  printf("--- Exite ---\n");
+  printf("--- Saving Data ---\n");
 
   FILE *file = fopen("students.txt", "w");
   if (file == NULL)
   {
-    printf("Error openig file for saving! \n");
+    printf("Error opening file for saving!\n");
     return;
   }
   for (int i = 0; i < student_count; i++)
@@ -264,7 +264,7 @@ void save_students(student students[], int student_count)
     fprintf(file, "%d|%s|%.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
   }
   fclose(file);
-  printf("Data saved succesfully to student.txt! \n");
+  printf("Data saved successfully to student.txt! \n");
 }
 
 void load_students(student students[], int *student_count)
@@ -272,7 +272,7 @@ void load_students(student students[], int *student_count)
   FILE *file = fopen("students.txt", "r");
   if (file == NULL)
   {
-    printf("Firts time runnig, no file exists yet. That's totally okay! \n");
+    printf("First time running, no file exists yet. That's totally okay!\n");
     return;
   }
   char line[128];
@@ -334,7 +334,7 @@ int main()
       break;
     case 6:
       save_students(students, student_count);
-      printf("Exiting program. Good bye! \n");
+      printf("Exiting program. Goodbye!\n");
       return 0;
     default:
       printf("Invalid choice. Please try again \n");
