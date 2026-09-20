@@ -22,9 +22,9 @@ int get_valid_integer()
   {
     if (scanf("%d%c", &value, &extra) == 2 && extra == '\n')
     {
-      return value; // Clean integer, no trailing garbage!
+      return value;
     }
-    clear_input_buffer(); // Clear 'abc' or '123abc' leftovers.
+    clear_input_buffer();
     printf("Invalid input! Please enter a whole number only. \n");
   }
 }
@@ -54,7 +54,7 @@ float get_valid_marks()
   while (1)
   {
     printf("Enter student marks (0 - 100): ");
-    // 1. valid float input.
+
     if (scanf("%f%c", &marks, &extra) == 2 && extra == '\n')
     {
       if (marks >= 0.0f && marks <= 100.0f)
@@ -85,8 +85,7 @@ void get_valid_name(char name[])
         continue;
       }
 
-      // Remove the trailing newline '\n' left by fgets.
-      name[strcspn(name, "\n")] = '\0'; // Ensure name is not empty.
+      name[strcspn(name, "\n")] = '\0';
       if (strlen(name) > 0)
       {
         return;
@@ -102,10 +101,10 @@ int is_roll_duplicate(student students[], int count, int roll)
   {
     if (students[i].rollnumber == roll)
     {
-      return 1; // 1 = Yes it is a duplicate!
+      return 1;
     }
   }
-  return 0; // 0 = No duplicate it is unique!
+  return 0;
 }
 
 void add_student(student students[], int *student_count)
@@ -128,12 +127,12 @@ void add_student(student students[], int *student_count)
     }
     else
     {
-      break; // Unique! Break out of the loop
+      break;
     }
   }
 
   students[*student_count].rollnumber = roll;
-  clear_input_buffer(); // Clear the leftover newline from get_valid_roll().
+  clear_input_buffer();
   get_valid_name(students[*student_count].name);
 
   students[*student_count].marks = get_valid_marks();
@@ -201,7 +200,7 @@ void update_student(student students[], int student_count)
   {
     if (students[i].rollnumber == roll_to_update)
     {
-      clear_input_buffer(); // Clear new line.
+      clear_input_buffer();
       get_valid_name(students[i].name);
       printf("Enter new Marks: ");
       students[i].marks = get_valid_marks();
