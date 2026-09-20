@@ -12,3 +12,5 @@
 12|Irin Parvin|68.00
 13|Rehan Rahaman|77.00
 14|Akash Mondal|56.00
+15|Rubina Parvin|89.00
+16|Sohini Akhtar|72.00
