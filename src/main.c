@@ -25,7 +25,7 @@ int get_valid_integer()
       return value;
     }
     clear_input_buffer();
-    printf("Invalid input! Please enter a whole number only. \n");
+    printf("Invalid input! Please enter a whole number only.\n");
   }
 }
 
@@ -38,7 +38,7 @@ int get_valid_roll()
     roll = get_valid_integer();
     if (roll <= 0)
     {
-      printf("Roll number must be greater than 0! \n");
+      printf("Roll number must be greater than 0!\n");
     }
     else
     {
@@ -61,12 +61,12 @@ float get_valid_marks()
       {
         return marks;
       }
-      printf("Marks must be between 0 and 100! \n");
+      printf("Marks must be between 0 and 100!\n");
     }
     else
     {
       clear_input_buffer();
-      printf("Invalid input! Please enter a numeric value. \n");
+      printf("Invalid input! Please enter a numeric value.\n");
     }
   }
 }
@@ -81,7 +81,7 @@ void get_valid_name(char name[])
       if (strchr(name, '\n') == NULL)
       {
         clear_input_buffer();
-        printf("Name is too long. Please enter a shorter name. \n");
+        printf("Name is too long. Please enter a shorter name.\n");
         continue;
       }
 
@@ -91,7 +91,7 @@ void get_valid_name(char name[])
         return;
       }
     }
-    printf("Invalid name. Please enter a valid name. \n");
+    printf("Invalid name. Please enter a valid name.\n");
   }
 }
 
@@ -113,7 +113,7 @@ void add_student(student students[], int *student_count)
 
   if (*student_count >= 100)
   {
-    printf("Cannot add student Database is full! \n");
+    printf("Cannot add student Database is full!\n");
     return;
   }
 
@@ -161,7 +161,7 @@ void search_student(student students[], int student_count)
 
   if (student_count == 0)
   {
-    printf("No students in Database to search! \n");
+    printf("No students in Database to search!\n");
     return;
   }
 
@@ -181,7 +181,7 @@ void search_student(student students[], int student_count)
   }
   if (!found)
   {
-    printf("Student with roll number %d not found! \n", search_roll);
+    printf("Student with roll number %d not found!\n", search_roll);
   }
 }
 
@@ -191,7 +191,7 @@ void update_student(student students[], int student_count)
 
   if (student_count == 0)
   {
-    printf("No students in Database to search! \n");
+    printf("No students in Database to search!\n");
     return;
   }
   int found = 0;
@@ -205,14 +205,14 @@ void update_student(student students[], int student_count)
       printf("Enter new Marks: ");
       students[i].marks = get_valid_marks();
 
-      printf("Student details updated successfully! \n");
+      printf("Student details updated successfully!\n");
       found = 1;
       break;
     }
   }
   if (!found)
   {
-    printf("No student with that roll number was found. \n");
+    printf("No student with that roll number was found.\n");
   }
 }
 
@@ -222,7 +222,7 @@ void delete_student(student students[], int *student_count)
 
   if (*student_count == 0)
   {
-    printf("No student in Database! \n");
+    printf("No student in Database!\n");
     return;
   }
   int found_index = -1;
@@ -245,7 +245,7 @@ void delete_student(student students[], int *student_count)
     students[j] = students[j + 1];
   }
   (*student_count)--;
-  printf("Student deleted successfully! \n");
+  printf("Student deleted successfully!\n");
 }
 
 void save_students(student students[], int student_count)
@@ -263,7 +263,7 @@ void save_students(student students[], int student_count)
     fprintf(file, "%d|%s|%.2f\n", students[i].rollnumber, students[i].name, students[i].marks);
   }
   fclose(file);
-  printf("Data saved successfully to student.txt! \n");
+  printf("Data saved successfully to student.txt!\n");
 }
 
 void load_students(student students[], int *student_count)
@@ -303,12 +303,12 @@ int main()
     printf("\n========================================\n");
     printf("       STUDENT MANAGEMENT SYSTEM\n");
     printf("========================================\n");
-    printf("1. Add Student \n");
-    printf("2. View All Student \n");
-    printf("3. Search Student \n");
-    printf("4. Update Student \n");
-    printf("5. Delete Student \n");
-    printf("6. Exit \n");
+    printf("1. Add Student\n");
+    printf("2. View All Student\n");
+    printf("3. Search Student\n");
+    printf("4. Update Student\n");
+    printf("5. Delete Student\n");
+    printf("6. Exit\n");
 
     choice = get_valid_integer();
 
@@ -336,7 +336,7 @@ int main()
       printf("Exiting program. Goodbye!\n");
       return 0;
     default:
-      printf("Invalid choice. Please try again \n");
+      printf("Invalid choice. Please try again\n");
 
       break;
     }
