@@ -50,23 +50,23 @@ int get_valid_roll()
 float get_valid_marks()
 {
   float marks;
+  char extra;
   while (1)
   {
     printf("Enter student marks (0 - 100): ");
     // 1. valid float input.
-    if (scanf("%f", &marks) != 1)
+    if (scanf("%f%c", &marks, &extra) == 2 && extra == '\n')
     {
-      printf("Invalid input! Please enter a numeric value. \n");
-      clear_input_buffer(); // clear buffer.
-    }
-    // 2, Validate range: 0.0 to 100.0
-    else if (marks < 0.0f || marks > 100.0f)
-    {
-      printf("Marks must be between 0 to 100! \n");
+      if (marks >= 0.0f && marks <= 100.0f)
+      {
+        return marks;
+      }
+      printf("Marks must be between 0 and 100! \n");
     }
     else
     {
-      return marks; // Valid!
+      clear_input_buffer();
+      printf("Invalid input! Please enter a numeric value. \n");
     }
   }
 }
